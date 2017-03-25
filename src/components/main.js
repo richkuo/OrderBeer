@@ -10,17 +10,48 @@ import {
   View,
   Platform,
 } from 'react-native';
-
-const routes = [
-  {title: 'Home', index: 0},
-  {title: 'Brands', index: 1},
-  {title: 'Details', index: 2},
-  {title: 'Checkout', index: 3},
-];
+import Home from 'OrderBeer/src/components/scenes/Home'
+import Brands from 'OrderBeer/src/components/scenes/Brands'
+import BrandDetails from 'OrderBeer/src/components/scenes/BrandDetails'
+import Checkout from 'OrderBeer/src/components/scenes/Checkout'
+import Complete from 'OrderBeer/src/components/scenes/Complete'
+import Routes from 'OrderBeer/src/routes'
 
 export default class OrderBeer extends Component {
   constructor(props) {
     super(props);
+  }
+
+  sceneSelector(route, navigator) {
+    if(route.index == 0) {
+      return (
+        <Home navigator={navigator} routes={Routes} />
+      );
+    }
+
+    if(route.index == 1) {
+      return (
+        <Brands navigator={navigator} routes={Routes} />
+      );
+    }
+
+    if(route.index == 2) {
+      return (
+        <BrandDetails navigator={navigator} routes={Routes} />
+      );
+    }
+
+    if(route.index == 3) {
+      return (
+        <Checkout navigator={navigator} routes={Routes} />
+      );
+    }
+
+    if(route.index == 4) {
+      return (
+        <Complete navigator={navigator} routes={Routes} />
+      );
+    }
   }
 
   render() {
@@ -31,12 +62,29 @@ export default class OrderBeer extends Component {
           networkActivityIndicatorVisible
         />
         <Navigator
-          initialRoute={routes[1]}
-          // initialRouteStack={routes}
-          // navigationBar={<NavBar navigator={navigator} navState={this.navState} routes={routes} />}
-          // renderScene={this.sceneSelector}
-          renderScene={(route, navigator) =>
-            <Text>Hello {route.title}!</Text>
+          initialRoute={Routes[0]}
+          renderScene={this.sceneSelector}
+          navigationBar={
+            <Navigator.NavigationBar
+              routeMapper={{
+                LeftButton: (route, navigator, index, navState) => {
+                  if (route.index === 0) {
+                    return(<Text></Text>);
+                  } else {
+                    return (
+                      <TouchableOpacity onPress={navigator.pop}> 
+                        <Text> Back </Text>
+                      </TouchableOpacity>
+                    );
+                  }
+                },
+                RightButton: (route, navigator, index, navState) =>
+                  { return (<Text></Text>); },
+                Title: (route, navigator, index, navState) =>
+                  { return (<Text>Ab Inbev Order Beer App</Text>); },
+              }}
+             style={{backgroundColor: 'white'}}
+           />
           }
           configureScene={(route, routeStack) =>
             Navigator.SceneConfigs.FadeAndroid}
