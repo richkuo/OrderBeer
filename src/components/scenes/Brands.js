@@ -43,13 +43,15 @@ export default class Brands extends Component {
     this.props.navigator.brandId = rowData.id;
     this.props.navigator.brandId = "456789";
 
+    // based on last week's percentage change
+    // change card background color
+    // and add up/down arrow icon
     return (
-      <TouchableOpacity onPress={() => this.props.navigator.push(Routes[2])}>
-        <Text>Sample Brand</Text>
-        <Text>rowData.name</Text>
-        <Text>rowData.suggested</Text>
-        <Text></Text>
-      </TouchableOpacity>
+      <View>
+        <TouchableOpacity onPress={() => this.props.navigator.push(Routes[2])} style={styles.card}>
+          <Text>sampleBrand.title</Text>
+        </TouchableOpacity>
+      </View>
     );
   }
 
@@ -57,16 +59,13 @@ export default class Brands extends Component {
     return (
       <View style={styles.mainContainer}>
         <Text>BRANDS</Text>
+
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(rowData) => this.renderBrand(rowData)}
         />
 
-        <Text>List of beer brands as buttons</Text>
-        <Text>suggested order quantity</Text>
-        <Text>each button goes to brand details page</Text>
         <Text>Place order button</Text>
-        
       </View>
     );
   }
@@ -76,7 +75,13 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
   },
-  sceneStyle: {
-    paddingTop: (Platform.OS === 'ios') ? 70 : 50,
+  card: {
+    margin: 10,
+    backgroundColor: 'white',
+    shadowColor: '#000000',
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    padding: 10,
+    borderRadius: 5,
   },
 });
