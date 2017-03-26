@@ -23,7 +23,9 @@ export default class BrandDetails extends Component {
 
   componentDidMount() {
     //API call for all data
-    return fetch('https://facebook.github.io/react-native/movies.json')
+    const brandId = this.props.navigator.brandId;
+
+    return fetch('http://198.199.66.68:8080/ledata?id=' + brandId)
       .then((response) => response.json())
       .then((responseJson) => {
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -49,7 +51,7 @@ export default class BrandDetails extends Component {
   renderFactors(factors) {
     return factors.map(function(factor) {
       return (
-        <Text style={styles.factor}>
+        <Text key={factors.id} style={styles.factor}>
           {factor.title} - {factor.quantity}
         </Text>
       );
@@ -60,14 +62,12 @@ export default class BrandDetails extends Component {
     // const lastYear = this.props.lastYear;
     // const thisYear = this.props.thisYear;
 
-    const lastYear = [{title: 'asdf', quantity: '1'}];
-    const thisYear = [{title: 'qwer', quantity: '2'}];
+    const lastYear = [{id: 1, title: 'asdf', quantity: '1'}];
+    const thisYear = [{id: 2, title: 'qwer', quantity: '2'}];
 
     return (
       <View style={styles.mainContainer}>
-        <Text>{this.props.navigator.brandId}</Text>
-        <Text>BRAND DETAILS</Text>
-        <Text>Per Brand</Text>
+        <Text>BRAND NAME</Text>
 
         <View style={styles.card}>
           <Text style={styles.cardTitle}>This week last year</Text>
@@ -83,24 +83,21 @@ export default class BrandDetails extends Component {
           <Text style={styles.total}>Total - editable</Text>
           
           <TouchableOpacity onPress={() => this.editOrder(1)}> 
-            <Text> Add to Order </Text>
+            <Text>Add to Order</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.editOrder(-1)}> 
-            <Text> Remove to Order </Text>
+            <Text>Remove to Order</Text>
           </TouchableOpacity>          
           
-          <View style={ {flexDirection: 'row'}}>
-       
+          <View style={{flexDirection: 'row'}}>
             <TouchableOpacity onPress={() => this.props.navigator.pop()} style={styles.saveButton}>
               <Text style={styles.centeredText}>Save and edit</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this.props.navigator.push(Routes[3])}  style={styles.checkoutButton}>
+            <TouchableOpacity onPress={() => this.props.navigator.push(Routes[3])} style={styles.checkoutButton}>
               <Text style={styles.centeredText}>Save and Checkout</Text>
             </TouchableOpacity>
-       
           </View>
-       
         </View>
       </View>
     );
@@ -149,6 +146,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     justifyContent: 'center',
     flex: 1,
-  }
-
+  },
 });

@@ -11,6 +11,7 @@ import {
   Platform,
 } from 'react-native';
 import Routes from 'OrderBeer/src/routes'
+import Brands from 'OrderBeer/src/components/scenes/Brands'
 
 export default class Home extends Component {
   constructor(props) {
@@ -20,12 +21,12 @@ export default class Home extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
+        <Text>Order Details</Text>
+
+        <Brands navigator={this.props.navigator} />
+
         <TouchableOpacity onPress={() => this.props.navigator.push(Routes[4])} style={styles.orderButton}>
           <Text style={styles.buttonText}>Order Now</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => this.props.navigator.push(Routes[1])} style={styles.detailsButton}>
-          <Text style={styles.buttonText}>Order Details</Text>
         </TouchableOpacity>
       </View>
     );
@@ -41,11 +42,12 @@ const styles = StyleSheet.create({
   orderButton: {
     padding: 20,
     margin: 20,
+    marginTop: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'red',
-    borderRadius: 125,
-    height: 250,
+    backgroundColor: 'green',
+    borderRadius: 50,
+    height: 100,
     width: 250,
   },
   detailsButton: {
