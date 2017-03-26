@@ -11,8 +11,10 @@ import {
   Platform,
   TextInput,
 } from 'react-native';
+
 import Routes from 'OrderBeer/src/routes'
 import AnimShape from 'OrderBeer/src/art'
+import OrderButton from 'OrderBeer/src/components/OrderButton';
 
 const dummyData = {
 }
@@ -36,6 +38,27 @@ export default class BrandDetails extends Component {
         console.error(error);
       });
   };
+
+
+    callRep(){
+      return fetch(
+        'http://198.199.66.68:8080/api/contact_sales',
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "POST"
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          return alert("You are calling your personal sales rep");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+
 
   editOrder(int) {
     // let qty = this.state.dataSource[this.props.navigator.brandId].quantity;
@@ -76,6 +99,7 @@ export default class BrandDetails extends Component {
     const thisYear = this.props.navigator.data;
     this.props.navigator.total = thisYear.qty + 120;
 
+    let brand = this.props.navigator.brand;
     return (
       <View style={styles.mainContainer}>
         <Text style={styles.brandName}>{this.props.navigator.brand}</Text>
@@ -90,7 +114,7 @@ export default class BrandDetails extends Component {
             <Text style={styles.cardTitle}>Suggested orders this week:</Text>
             <TextInput
               style={styles.textInput}
-              onChangeText={(quantity) => this.setState({quantity})}
+              onChangeText={(quantity) => this.props.navigator[brand].updatedValue = quantity}
               defaultValue={(thisYear.qty + 120).toString()}
               key={thisYear.qty + 10}
               keyboardType='numeric'
@@ -108,6 +132,14 @@ export default class BrandDetails extends Component {
             <TouchableOpacity onPress={() => this.props.navigator.push(Routes[3])} style={styles.checkoutButton}>
               <Text style={styles.centeredText}>Save and Checkout</Text>
             </TouchableOpacity>
+
+            <OrderButton
+              navigator={this.props.navigator}
+              route={3}
+              text="Call Rep"
+              onPress={this.callRep}
+            />
+
           </View>
         </View>
       </View>
@@ -123,13 +155,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
-    height: 250,
-    width: 175,
+    marginLeft: 10,
+    height: 50,
+    width: 75,
     borderColor: 'gray',
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 10,
     flex: 1,
-    fontSize: 20,
   },
   brandName: {
     fontSize: 20,

@@ -25,7 +25,7 @@ export default class orderButton extends Component {
     if(this.props.onPress){
       return this.props.onPress();
     }
-  return;
+    return;
   }
 
   render() {
