@@ -55,7 +55,6 @@ export default class Home extends Component {
           route={5}
           text="Order Details"
         />
-
       </View>
     );
   }

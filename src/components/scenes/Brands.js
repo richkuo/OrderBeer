@@ -14,34 +14,7 @@ import {
 } from 'react-native';
 import Routes from 'OrderBeer/src/routes'
 
-import OrderButton from '../OrderButton';
-
-const dummyData = [
-  {
-    id: 1,
-    title: 'Bud light',
-    percentChange: '-25',
-    quantity: '2500',
-  },
-  {
-    id: 2,
-    title: 'crak',
-    percentChange: '+25',
-    quantity: '1000',
-  },
-  {
-    id: 3,
-    title: 'stella',
-    percentChange: '-25',
-    quantity: '500',
-  },
-  {
-    id: 4,
-    title: 'bbass',
-    percentChange: '-25',
-    quantity: '1500',
-  },
-];
+const dummyData = [];
 
 export default class Brands extends Component {
   constructor(props) {
@@ -52,19 +25,33 @@ export default class Brands extends Component {
     };
   }
 
-  componentDidMount() {
-    //API call for all data
-    // return fetch('http://198.199.66.68:8080/ledata')
-    return fetch('https://facebook.github.io/react-native/movies.json')
+  componentWillMount() {
+    return fetch('http://198.199.66.68:8080/ledata')
       .then((response) => response.json())
       .then((responseJson) => {
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.setState({dataSource: ds.cloneWithRows(dummyData)});
+
+        return fetch('http://198.199.66.68:8080/api/ledata?weeks=201705.201707.201708')
+          .then((response2) => response2.json())
+          .then((responseJson2) => {
+            responseJson.map(function(row) {
+              responseJson2.forEach(function(row2) {
+                if(row.brand === row2.brand) {
+                  if(row2.week === 201705) {
+                    row['lastMonth'] = row2.qty;
+                  } else if(row2.week === 201707) {
+                    row['lastWeek'] = row2.qty;
+                  }
+                }
+              });
+            });
+        this.setState({dataSource: ds.cloneWithRows(responseJson)});
+          })
       })
       .catch((error) => {
         console.error(error);
       });
-  };
+  }
 
   removeBrand(brandId) {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -78,17 +65,21 @@ export default class Brands extends Component {
     this.setState({dataSource: ds.cloneWithRows(newData)});
   }
 
+  showDetails(rowData) {
+    this.props.navigator.brand = rowData.brand;
+    this.props.navigator.data = rowData;
+    this.props.navigator.push(Routes[2]);
+  }
+ 
   renderBrand(rowData) {
-    // this.props.navigator.brandId = rowData.id;
-
-    // based on last week's percentage change
-    // change card background color
-    // and add up/down arrow icon
-
     return (
-      <View style={styles.brandCard}>
+      <TouchableOpacity
+        key={rowData.brand}
+        onPress={() => this.showDetails(rowData)}
+        style={styles.button}
+      >
         <View style={styles.brandSummary}>
-          <Text style={styles.brandTitle}>{rowData.title}</Text>
+          <Text style={styles.brandTitle}>{rowData.brand}</Text>
 
           <View style={styles.recommendedOrderQuantity}>
             <View style={styles.recommendedOrderQuantityText}>
@@ -100,33 +91,25 @@ export default class Brands extends Component {
             <TextInput
               style={styles.textInput}
               onChangeText={(quantity) => this.setState({quantity})}
-              defaultValue={rowData.quantity}
+              defaultValue={rowData.qty.toString()}
               key={rowData.id + 10}
               keyboardType='numeric'
               maxLength={999999999}
             />
           </View>
-
         </View>
 
         <View style={styles.brandAction}>
           <TouchableOpacity
+            disabled={true}
             key={rowData.id + 1000}
             onPress={() => this.removeBrand(rowData.id)}
             style={styles.removeButton}
           >
             <Text>Remove</Text>
           </TouchableOpacity>
-
-          <TouchableOpacity
-            key={rowData.id}
-            onPress={() => this.props.navigator.push(Routes[2])}
-            style={styles.button}
-          >
-            <Text>View Details</Text>
-          </TouchableOpacity>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 
@@ -134,6 +117,7 @@ export default class Brands extends Component {
     return (
       <View style={styles.mainContainer}>
         <ListView
+          enableEmptySections={true}
           dataSource={this.state.dataSource}
           renderRow={(rowData) => this.renderBrand(rowData)}
         />

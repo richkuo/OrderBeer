@@ -11,9 +11,9 @@ import {
   Platform,
 } from 'react-native';
 import Routes from 'OrderBeer/src/routes'
+import AnimShape from 'OrderBeer/src/art'
 
 const dummyData = {
-
 }
 
 export default class BrandDetails extends Component {
@@ -25,13 +25,9 @@ export default class BrandDetails extends Component {
     //API call for all data
     const brandId = this.props.navigator.brandId;
 
-    return fetch('http://198.199.66.68:8080/ledata?id=' + brandId)
+    return fetch('http://198.199.66.68:8080/ledata')
       .then((response) => response.json())
       .then((responseJson) => {
-
-         console.log("responseJson");
-         console.log(responseJson);
-
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.setState({dataSource: ds.cloneWithRows(dummyData)});
       })
@@ -52,50 +48,53 @@ export default class BrandDetails extends Component {
     //this.state.brands
   }
 
-  renderFactors(factors) {
-    return factors.map(function(factor) {
-      return (
-        <Text key={factors.id} style={styles.factor}>
-          {factor.title} - {factor.quantity}
-        </Text>
-      );
-    });
+  renderLastYearFactors(factors) {
+    return (
+      <View key={Math.random()}>
+        <Text style={styles.factor}>NBA + NHL: {factors.major + 8}</Text>
+        <Text style={styles.factor}>Montreal Hockey Games: {factors.mon}</Text>
+        <Text style={styles.factor}>UFC Fights: {factors.ufc == null ? 0 : factors.ufc}</Text>
+        <Text style={styles.factor}>Local Events: {factors.local}</Text>
+      </View>
+    );
+  }
+
+  renderThisYearFactors(factors) {
+    return (
+      <View key={Math.random()}>
+        <Text style={styles.factor}>NBA + NHL: {factors.major + 3}</Text>
+        <Text style={styles.factor}>Montreal Hockey Games: {factors.mon + 3}</Text>
+        <Text style={styles.factor}>UFC Fights: {factors.ufc + 3}</Text>
+        <Text style={styles.factor}>Local Events: {factors.local + 3}</Text>
+      </View>
+    );
   }
 
   render() {
-    // const lastYear = this.props.lastYear;
-    // const thisYear = this.props.thisYear;
-
-    const lastYear = [{id: 1, title: 'asdf', quantity: '1'}];
-    const thisYear = [{id: 2, title: 'qwer', quantity: '2'}];
+    const lastYear = this.props.navigator.data;
+    const thisYear = this.props.navigator.data;
 
     return (
       <View style={styles.mainContainer}>
-        <Text>BRAND NAME</Text>
+        <Text style={styles.brandName}>{this.props.navigator.brand}</Text>
 
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>This week last year</Text>
-          {this.renderFactors(lastYear)}
+          <Text style={styles.cardTitle}>This week last year: {lastYear.qty}</Text>
+          {lastYear[0]}
+          {this.renderLastYearFactors(lastYear)}
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>suggested orders for this week</Text>
-          {this.renderFactors(thisYear)}
+          <Text style={styles.cardTitle}>Suggested orders for this week: {thisYear.qty + 120}</Text>
+          {this.renderThisYearFactors(thisYear)}
         </View>
 
         <View style={styles.card}>
           <Text style={styles.total}>Total - editable</Text>
 
-          <TouchableOpacity onPress={() => this.editOrder(1)}>
-            <Text>Add to Order</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.editOrder(-1)}>
-            <Text>Remove to Order</Text>
-          </TouchableOpacity>
-
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity onPress={() => this.props.navigator.pop()} style={styles.saveButton}>
-              <Text style={styles.centeredText}>Save and edit</Text>
+              <Text style={styles.centeredText}>Save and Return</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => this.props.navigator.push(Routes[3])} style={styles.checkoutButton}>
@@ -113,6 +112,11 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
   },
+  brandName: {
+    fontSize: 20,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
   card: {
     margin: 10,
     backgroundColor: 'white',
@@ -128,11 +132,13 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   cardTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '500',
   },
   factor: {
-    marginLeft: 10,
+    fontSize: 16,
+    marginLeft: 15,
+    marginTop: 5,
   },
   total: {
     textAlign: 'center',
@@ -141,14 +147,18 @@ const styles = StyleSheet.create({
     fontWeight: '500'
   },
   saveButton:{
+    height: 50,
+    borderRadius: 10,
     margin: 5,
-    backgroundColor: 'black',
+    backgroundColor: 'green',
     justifyContent: 'center',
     flex: 1,
   },
   checkoutButton:{
+    height: 50,
+    borderRadius: 10,
     margin: 5,
-    backgroundColor: 'black',
+    backgroundColor: 'green',
     justifyContent: 'center',
     flex: 1,
   },
