@@ -10,8 +10,10 @@ import {
   View,
   Platform,
 } from 'react-native';
-import Routes from 'OrderBeer/src/routes'
-import Brands from 'OrderBeer/src/components/scenes/Brands'
+
+import Routes from 'OrderBeer/src/routes';
+import Brands from 'OrderBeer/src/components/scenes/Brands';
+import OrderButton from 'OrderBeer/src/components/OrderButton';
 
 export default class Home extends Component {
   constructor(props) {
@@ -25,9 +27,8 @@ export default class Home extends Component {
 
         <Brands navigator={this.props.navigator} />
 
-        <TouchableOpacity onPress={() => this.props.navigator.push(Routes[4])} style={styles.orderButton}>
-          <Text style={styles.buttonText}>Order Now</Text>
-        </TouchableOpacity>
+        <OrderButton navigator={this.props.navigator}/>
+
       </View>
     );
   }
