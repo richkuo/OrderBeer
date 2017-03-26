@@ -16,6 +16,7 @@ import BrandDetails from 'OrderBeer/src/components/scenes/BrandDetails'
 import Checkout from 'OrderBeer/src/components/scenes/Checkout'
 import Complete from 'OrderBeer/src/components/scenes/Complete'
 import Routes from 'OrderBeer/src/routes'
+import Animation from 'OrderBeer/src/art';
 
 export default class OrderBeer extends Component {
   constructor(props) {
@@ -52,6 +53,12 @@ export default class OrderBeer extends Component {
         <Complete navigator={navigator} routes={Routes} />
       );
     }
+
+    if(route.index == 5) {
+      return (
+        <Animation navigator={navigator} routes={Routes} />
+      );
+    }
   }
 
   render() {
@@ -74,7 +81,7 @@ export default class OrderBeer extends Component {
                     return(<Text></Text>);
                   } else {
                     return (
-                      <TouchableOpacity onPress={navigator.pop}> 
+                      <TouchableOpacity onPress={navigator.pop}>
                         <Text> Back </Text>
                       </TouchableOpacity>
                     );

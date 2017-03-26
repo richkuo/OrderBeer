@@ -81,7 +81,7 @@ class AreaSpline extends React.Component {
 
   render() {
     const x = margin;
-    const y = this.props.height - margin;
+    const y = this.props.height - margin - 50;
 
     return (
       <View width={this.props.width} height={this.props.height}>
