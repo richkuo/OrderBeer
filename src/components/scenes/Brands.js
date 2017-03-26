@@ -91,7 +91,7 @@ export default class Brands extends Component {
             <TextInput
               style={styles.textInput}
               onChangeText={(quantity) => this.setState({quantity})}
-              defaultValue={rowData.qty.toString()}
+              defaultValue={(rowData.qty + 120).toString()}
               key={rowData.id + 10}
               keyboardType='numeric'
               maxLength={999999999}

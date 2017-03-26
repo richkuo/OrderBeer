@@ -9,6 +9,7 @@ import {
   ListView,
   View,
   Platform,
+  TextInput,
 } from 'react-native';
 import Routes from 'OrderBeer/src/routes'
 import AnimShape from 'OrderBeer/src/art'
@@ -86,7 +87,15 @@ export default class BrandDetails extends Component {
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>Suggested orders for this week: {thisYear.qty + 120}</Text>
+            <Text style={styles.cardTitle}>Suggested orders this week:</Text>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={(quantity) => this.setState({quantity})}
+              defaultValue={(thisYear.qty + 120).toString()}
+              key={thisYear.qty + 10}
+              keyboardType='numeric'
+              maxLength={999999999}
+            />
           {this.renderThisYearFactors(thisYear)}
         </View>
 
@@ -109,6 +118,18 @@ export default class BrandDetails extends Component {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
+  },
+  textInput: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    height: 250,
+    width: 175,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    flex: 1,
+    fontSize: 20,
   },
   brandName: {
     fontSize: 20,
