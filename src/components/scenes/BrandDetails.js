@@ -125,6 +125,10 @@ export default class BrandDetails extends Component {
 
         <View style={styles.card}>
           <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity onPress={() => this.callRep} style={styles.checkoutButton}>
+              <Text style={styles.centeredText}>Call Rep</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity onPress={() => this.props.navigator.pop()} style={styles.saveButton}>
               <Text style={styles.centeredText}>Save and Return</Text>
             </TouchableOpacity>
@@ -132,14 +136,6 @@ export default class BrandDetails extends Component {
             <TouchableOpacity onPress={() => this.props.navigator.push(Routes[3])} style={styles.checkoutButton}>
               <Text style={styles.centeredText}>Save and Checkout</Text>
             </TouchableOpacity>
-
-            <OrderButton
-              navigator={this.props.navigator}
-              route={3}
-              text="Call Rep"
-              onPress={this.callRep}
-            />
-
           </View>
         </View>
       </View>
