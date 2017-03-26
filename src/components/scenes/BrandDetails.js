@@ -28,6 +28,10 @@ export default class BrandDetails extends Component {
     return fetch('http://198.199.66.68:8080/ledata?id=' + brandId)
       .then((response) => response.json())
       .then((responseJson) => {
+
+         console.log("responseJson");
+         console.log(responseJson);
+
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.setState({dataSource: ds.cloneWithRows(dummyData)});
       })
@@ -35,7 +39,7 @@ export default class BrandDetails extends Component {
         console.error(error);
       });
   };
-  
+
   editOrder(int) {
     // let qty = this.state.dataSource[this.props.navigator.brandId].quantity;
     let qty = 5;
@@ -43,7 +47,7 @@ export default class BrandDetails extends Component {
     this.state.dataSource[this.props.navigator.brandId].quantity = newQty;
     this.setState({ ...this.state, qty});
   }
-  
+
   renderBrandDetails(){
     //this.state.brands
   }
@@ -81,14 +85,14 @@ export default class BrandDetails extends Component {
 
         <View style={styles.card}>
           <Text style={styles.total}>Total - editable</Text>
-          
-          <TouchableOpacity onPress={() => this.editOrder(1)}> 
+
+          <TouchableOpacity onPress={() => this.editOrder(1)}>
             <Text>Add to Order</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.editOrder(-1)}> 
+          <TouchableOpacity onPress={() => this.editOrder(-1)}>
             <Text>Remove to Order</Text>
-          </TouchableOpacity>          
-          
+          </TouchableOpacity>
+
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity onPress={() => this.props.navigator.pop()} style={styles.saveButton}>
               <Text style={styles.centeredText}>Save and edit</Text>
