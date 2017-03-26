@@ -46,7 +46,7 @@ export default class Brands extends Component {
               });
             });
         this.setState({dataSource: ds.cloneWithRows(responseJson)});
-          })
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -91,23 +91,12 @@ export default class Brands extends Component {
             <TextInput
               style={styles.textInput}
               onChangeText={(quantity) => this.setState({quantity})}
-              defaultValue={rowData.qty.toString()}
+              defaultValue={(rowData.qty + 120).toString()}
               key={rowData.id + 10}
               keyboardType='numeric'
               maxLength={999999999}
             />
           </View>
-        </View>
-
-        <View style={styles.brandAction}>
-          <TouchableOpacity
-            disabled={true}
-            key={rowData.id + 1000}
-            onPress={() => this.removeBrand(rowData.id)}
-            style={styles.removeButton}
-          >
-            <Text>Remove</Text>
-          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     );

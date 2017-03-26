@@ -42,11 +42,10 @@ export default class Checkout extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <Text>CHECKOUT</Text>
-        <Text>List of brands and quantity being ordered</Text>
-        <Text>Modify order button</Text>
+        <Text style={{fontSize: 24}}>CHECKOUT</Text>
 
-        <Text>Total Final Order</Text>
+        <Text style={{fontSize: 20}}>Total Final Order: {parseInt(this.props.navigator.total) * 4}</Text>
+
         <OrderButton
           navigator={this.props.navigator}
           text="Place Order"
@@ -60,6 +59,8 @@ export default class Checkout extends Component {
 
 const styles = StyleSheet.create({
   mainContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
     flex: 1,
   },
   sceneStyle: {

@@ -9,6 +9,7 @@ import {
   ListView,
   View,
   Platform,
+  TextInput,
 } from 'react-native';
 
 import Routes from 'OrderBeer/src/routes'
@@ -96,7 +97,9 @@ export default class BrandDetails extends Component {
   render() {
     const lastYear = this.props.navigator.data;
     const thisYear = this.props.navigator.data;
+    this.props.navigator.total = thisYear.qty + 120;
 
+    let brand = this.props.navigator.brand;
     return (
       <View style={styles.mainContainer}>
         <Text style={styles.brandName}>{this.props.navigator.brand}</Text>
@@ -108,13 +111,19 @@ export default class BrandDetails extends Component {
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>Suggested orders for this week: {thisYear.qty + 120}</Text>
+            <Text style={styles.cardTitle}>Suggested orders this week:</Text>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={(quantity) => this.props.navigator[brand].updatedValue = quantity}
+              defaultValue={(thisYear.qty + 120).toString()}
+              key={thisYear.qty + 10}
+              keyboardType='numeric'
+              maxLength={999999999}
+            />
           {this.renderThisYearFactors(thisYear)}
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.total}>Total - editable</Text>
-
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity onPress={() => this.props.navigator.pop()} style={styles.saveButton}>
               <Text style={styles.centeredText}>Save and Return</Text>
@@ -123,12 +132,14 @@ export default class BrandDetails extends Component {
             <TouchableOpacity onPress={() => this.props.navigator.push(Routes[3])} style={styles.checkoutButton}>
               <Text style={styles.centeredText}>Save and Checkout</Text>
             </TouchableOpacity>
+
             <OrderButton
               navigator={this.props.navigator}
               route={3}
               text="Call Rep"
               onPress={this.callRep}
             />
+
           </View>
         </View>
       </View>
@@ -138,6 +149,18 @@ export default class BrandDetails extends Component {
 
 const styles = StyleSheet.create({
   mainContainer: {
+    flex: 1,
+  },
+  textInput: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    marginLeft: 10,
+    height: 50,
+    width: 75,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 10,
     flex: 1,
   },
   brandName: {

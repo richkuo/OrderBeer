@@ -43,7 +43,7 @@ export default class Home extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <Text>Order Details</Text>
+        <Text style={{fontSize: 24}}>Order Details</Text>
 
         <Brands navigator={this.props.navigator} />
 
@@ -54,12 +54,13 @@ export default class Home extends Component {
           onPress={this.placeOrder}
         />
 
-        <OrderButton
-          navigator={this.props.navigator}
-          route={5}
-          text="Order Details"
-        />
-      </View>
+
+          <OrderButton
+            navigator={this.props.navigator}
+            route={5}
+            text="Order Details"
+          />
+        </View>
     );
   }
 }
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     padding: 20,
+    paddingTop: 0,
     alignItems: 'center',
   },
   orderButton: {
@@ -79,7 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     borderRadius: 50,
     height: 100,
-    width: 250,
+    width: 550,
   },
   detailsButton: {
     padding: 20,
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     borderRadius: 125,
     height: 150,
-    width: 250,
+    width: 550,
   },
   buttonText: {
     fontSize: 25,
