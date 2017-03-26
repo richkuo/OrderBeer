@@ -10,7 +10,9 @@ import {
   View,
   Platform,
 } from 'react-native';
-import Routes from 'OrderBeer/src/routes'
+import Routes from 'OrderBeer/src/routes';
+
+import OrderButton from 'OrderBeer/src/components/OrderButton';
 
 export default class Checkout extends Component {
   constructor(props) {
@@ -25,7 +27,7 @@ export default class Checkout extends Component {
         <Text>Modify order button</Text>
 
         <Text>Total Final Order</Text>
-        <Text>Place Order Button</Text>
+        <OrderButton navigator={this.props.navigator} />
       </View>
     );
   }

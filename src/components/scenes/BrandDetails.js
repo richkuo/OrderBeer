@@ -101,6 +101,7 @@ export default class BrandDetails extends Component {
             <TouchableOpacity onPress={() => this.props.navigator.push(Routes[3])} style={styles.checkoutButton}>
               <Text style={styles.centeredText}>Save and Checkout</Text>
             </TouchableOpacity>
+
           </View>
         </View>
       </View>
