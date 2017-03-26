@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 import Routes from 'OrderBeer/src/routes'
 
+import OrderButton from '../OrderButton';
+
 const dummyData = [
   {
     id: 1,
@@ -75,13 +77,14 @@ export default class Brands extends Component {
 
     this.setState({dataSource: ds.cloneWithRows(newData)});
   }
- 
+
   renderBrand(rowData) {
     // this.props.navigator.brandId = rowData.id;
 
     // based on last week's percentage change
     // change card background color
     // and add up/down arrow icon
+
     return (
       <View style={styles.brandCard}>
         <View style={styles.brandSummary}>
@@ -93,7 +96,7 @@ export default class Brands extends Component {
                 Recommended Order Quantity
               </Text>
             </View>
-            
+
             <TextInput
               style={styles.textInput}
               onChangeText={(quantity) => this.setState({quantity})}
@@ -134,6 +137,7 @@ export default class Brands extends Component {
           dataSource={this.state.dataSource}
           renderRow={(rowData) => this.renderBrand(rowData)}
         />
+
       </View>
     );
   }
