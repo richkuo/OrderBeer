@@ -20,22 +20,25 @@ export default class Home extends Component {
     super(props);
   }
 
-  // handleOrderPress(route){
-  //   const BASE_URL = "http://198.199.66.68:8080/api";
-  //   let ext;
-  //   route === 4? ext = "/confirm" : ext = "/contact_sales";
-  //   const url = BASE_URL + ext;
-  //   return fetch(url, {
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     method: "POST",
-  //   })
-  //   .then(response => response.json())
-  //   .then(json =>  console.log("blahdedah", json))
-  //   .catch(err =>  console.log("Error on Twillio call", err))
-  // }
+  placeOrder(){
+    return fetch(
+        'http://198.199.66.68:8080/api/confirm',
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "POST"
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          return alert("Your beer order has been placed");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+  }
 
   render() {
     return (
@@ -48,6 +51,7 @@ export default class Home extends Component {
           navigator={this.props.navigator}
           route={4}
           text="Order Now"
+          onPress={this.placeOrder}
         />
 
         <OrderButton

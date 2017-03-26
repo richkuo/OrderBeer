@@ -14,6 +14,8 @@ import Morph from 'art/morph/path';
 
 import * as shape from 'd3-shape';
 
+import OrderButton from 'OrderBeer/src/components/OrderButton';
+
 const d3 = {
   shape,
 };
@@ -131,11 +133,12 @@ export default class AnimShape extends React.Component {
   render() {
     const path = this.state.path;
     return (
-       <Shape
-         d={path}
-         stroke={this.props.color}
-         fill={this.props.color}
-         />
+        <Shape
+          d={path}
+          stroke={this.props.color}
+          fill={this.props.color}
+        />
+
     );
   }
 }

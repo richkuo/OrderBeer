@@ -10,8 +10,10 @@ import {
   View,
   Platform,
 } from 'react-native';
+
 import Routes from 'OrderBeer/src/routes'
 import AnimShape from 'OrderBeer/src/art'
+import OrderButton from 'OrderBeer/src/components/OrderButton';
 
 const dummyData = {
 }
@@ -35,6 +37,27 @@ export default class BrandDetails extends Component {
         console.error(error);
       });
   };
+
+
+    callRep(){
+      return fetch(
+        'http://198.199.66.68:8080/api/contact_sales',
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: "POST"
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          return alert("You are calling your personal sales rep");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+
 
   editOrder(int) {
     // let qty = this.state.dataSource[this.props.navigator.brandId].quantity;
@@ -100,7 +123,12 @@ export default class BrandDetails extends Component {
             <TouchableOpacity onPress={() => this.props.navigator.push(Routes[3])} style={styles.checkoutButton}>
               <Text style={styles.centeredText}>Save and Checkout</Text>
             </TouchableOpacity>
-
+            <OrderButton
+              navigator={this.props.navigator}
+              route={3}
+              text="Call Rep"
+              onPress={this.callRep}
+            />
           </View>
         </View>
       </View>
