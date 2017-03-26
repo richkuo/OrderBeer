@@ -66,12 +66,8 @@ export default class Brands extends Component {
 
   removeBrand(brandId) {
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    console.log(this.state.dataSource);
 
-    const newData = oldData.filter(function(data) {
-      console.log(brandId);
-      console.log(data.id);
-      console.log(brandId != data.id);
+    const newData = this.state.dataSource._dataBlob.s1.filter(function(data) {
       if(brandId != data.id) {
         return data;
       }
