@@ -111,15 +111,7 @@ export default class BrandDetails extends Component {
         </View>
 
         <View style={styles.card}>
-            <Text style={styles.cardTitle}>Suggested orders this week:</Text>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={(quantity) => this.props.navigator[brand].updatedValue = quantity}
-              defaultValue={(thisYear.qty + 120).toString()}
-              key={thisYear.qty + 10}
-              keyboardType='numeric'
-              maxLength={999999999}
-            />
+          <Text style={styles.cardTitle}>Suggested orders this week: {thisYear.qty}</Text>
           {this.renderThisYearFactors(thisYear)}
         </View>
 
