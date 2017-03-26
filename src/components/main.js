@@ -26,10 +26,12 @@ export default class OrderBeer extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
+
         <StatusBar
           barStyle="dark-content"
           networkActivityIndicatorVisible
         />
+
         <Navigator
           initialRoute={routes[1]}
           // initialRouteStack={routes}

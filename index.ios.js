@@ -4,4 +4,6 @@ import {
 
 import OrderBeer from 'OrderBeer/src/components/main.js'
 
-AppRegistry.registerComponent('OrderBeer', () => OrderBeer);
+import Art from 'OrderBeer/src/art';
+
+AppRegistry.registerComponent('OrderBeer', () => Art);
