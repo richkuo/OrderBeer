@@ -73,6 +73,7 @@ export default class BrandDetails extends Component {
   render() {
     const lastYear = this.props.navigator.data;
     const thisYear = this.props.navigator.data;
+    this.props.navigator.total = thisYear.qty + 120;
 
     return (
       <View style={styles.mainContainer}>
@@ -90,8 +91,6 @@ export default class BrandDetails extends Component {
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.total}>Total - editable</Text>
-
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity onPress={() => this.props.navigator.pop()} style={styles.saveButton}>
               <Text style={styles.centeredText}>Save and Return</Text>
@@ -100,7 +99,6 @@ export default class BrandDetails extends Component {
             <TouchableOpacity onPress={() => this.props.navigator.push(Routes[3])} style={styles.checkoutButton}>
               <Text style={styles.centeredText}>Save and Checkout</Text>
             </TouchableOpacity>
-
           </View>
         </View>
       </View>

@@ -46,7 +46,7 @@ export default class Brands extends Component {
               });
             });
         this.setState({dataSource: ds.cloneWithRows(responseJson)});
-          })
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -97,17 +97,6 @@ export default class Brands extends Component {
               maxLength={999999999}
             />
           </View>
-        </View>
-
-        <View style={styles.brandAction}>
-          <TouchableOpacity
-            disabled={true}
-            key={rowData.id + 1000}
-            onPress={() => this.removeBrand(rowData.id)}
-            style={styles.removeButton}
-          >
-            <Text>Remove</Text>
-          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     );

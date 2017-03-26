@@ -40,21 +40,23 @@ export default class Home extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <Text>Order Details</Text>
+        <Text style={{fontSize: 24}}>Order Details</Text>
 
         <Brands navigator={this.props.navigator} />
 
-        <OrderButton
-          navigator={this.props.navigator}
-          route={4}
-          text="Order Now"
-        />
+        <View style={{borderTopWidth: 1, marginTop: 15}}>
+          <OrderButton
+            navigator={this.props.navigator}
+            route={4}
+            text="Order Now"
+          />
 
-        <OrderButton
-          navigator={this.props.navigator}
-          route={5}
-          text="Order Details"
-        />
+          <OrderButton
+            navigator={this.props.navigator}
+            route={5}
+            text="Order Details"
+          />
+        </View>
       </View>
     );
   }
@@ -64,6 +66,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     padding: 20,
+    paddingTop: 0,
     alignItems: 'center',
   },
   orderButton: {
@@ -75,7 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     borderRadius: 50,
     height: 100,
-    width: 250,
+    width: 550,
   },
   detailsButton: {
     padding: 20,
@@ -85,7 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     borderRadius: 125,
     height: 150,
-    width: 250,
+    width: 550,
   },
   buttonText: {
     fontSize: 25,

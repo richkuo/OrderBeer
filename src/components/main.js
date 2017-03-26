@@ -90,7 +90,7 @@ export default class OrderBeer extends Component {
                 RightButton: (route, navigator, index, navState) =>
                   { return (<Text></Text>); },
                 Title: (route, navigator, index, navState) =>
-                  { return (<Text>Ab Inbev Order Beer App</Text>); },
+                  { return (<Text></Text>); },
               }}
              style={{backgroundColor: 'white'}}
            />
